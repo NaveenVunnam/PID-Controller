@@ -1,7 +1,31 @@
 # CarND-Controls-PID
 Self-Driving Car Engineer Nanodegree Program
-
 ---
+The purpose of this project is to implement a PID controller in C++ to drive the car around the given track in simulator. The simulator provides the cross track error (CTE) and the velocity (mph) in order to compute the appropriate steering angle. 
+
+### Project Rubric
+
+#### 1.Your code should compile: 
+The code compiles without any errors.And no changes were made to CMakeLists.txt.
+
+#### 2. The PID procedure follows what was taught in the lessons
+The PID controller is implemented in `/src/PID.cpp`. 
+
+`PID:Init()` method Initializes the PID coefficients and errors.
+
+`PID:UpdateError()` method Updates the PID errors based on CTE(Cross Track Error).
+
+`PID:TotalError()` method Calculates and returns the total error.
+
+#### 3. Describe the effect each of the P, I, D components had in your implementation
+P(Proportional) component causes the car to steer proportional to CTE which is the distance of car from center lane. When I use it alone with keeping other components to zero, it causes the car to overshoot.
+
+D(Differential) component tries to counteract the P component's tendency to overshoot the center lane and causes the car to approach the center lane smoothly. 
+
+I(integral) component eliminates the possible bias on CTE which could prevent the PD controller to reach the center lane. When used it alone, it causes the car to go in circles.
+
+#### 4.Describe how the final hyperparameters were chosen.
+The final parameters were chosen by trail and error method. First I set all the parameters to zero and Increased the `P component` untill the car starts to oscillate around the center lane steadily. Then I increased the `D component` to remove the oscilations. The `I component` is set to minimize the around big turns. 
 
 ## Dependencies
 
@@ -55,44 +79,6 @@ Please (do your best to) stick to [Google's C++ style guide](https://google.gith
 Note: regardless of the changes you make, your project must be buildable using
 cmake and make!
 
-More information is only accessible by people who are already enrolled in Term 2
-of CarND. If you are enrolled, see [the project page](https://classroom.udacity.com/nanodegrees/nd013/parts/40f38239-66b6-46ec-ae68-03afd8a601c8/modules/f1820894-8322-4bb3-81aa-b26b3c6dcbaf/lessons/e8235395-22dd-4b87-88e0-d108c5e5bbf4/concepts/6a4d8d42-6a04-4aa6-b284-1697c0fd6562)
-for instructions and the project rubric.
 
-## Hints!
 
-* You don't have to follow this directory structure, but if you do, your work
-  will span all of the .cpp files here. Keep an eye out for TODOs.
-
-## Call for IDE Profiles Pull Requests
-
-Help your fellow students!
-
-We decided to create Makefiles with cmake to keep this project as platform
-agnostic as possible. Similarly, we omitted IDE profiles in order to we ensure
-that students don't feel pressured to use one IDE or another.
-
-However! I'd love to help people get up and running with their IDEs of choice.
-If you've created a profile for an IDE that you think other students would
-appreciate, we'd love to have you add the requisite profile files and
-instructions to ide_profiles/. For example if you wanted to add a VS Code
-profile, you'd add:
-
-* /ide_profiles/vscode/.vscode
-* /ide_profiles/vscode/README.md
-
-The README should explain what the profile does, how to take advantage of it,
-and how to install it.
-
-Frankly, I've never been involved in a project with multiple IDE profiles
-before. I believe the best way to handle this would be to keep them out of the
-repo root to avoid clutter. My expectation is that most profiles will include
-instructions to copy files to a new location to get picked up by the IDE, but
-that's just a guess.
-
-One last note here: regardless of the IDE used, every submitted project must
-still be compilable with cmake and make./
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
 
